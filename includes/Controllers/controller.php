@@ -21,8 +21,7 @@ class Controller {
 
     public function checkToken($token) {
         global $database;
-        $query = $database->Query("SELECT * FROM token WHERE token='$token'");
-        $row = mysqli_fetch_array($query);
+        $row = $database->Query("SELECT * FROM token WHERE token='$token'");
         if(!$row) {
             die("Wrong token");
         }
@@ -32,8 +31,7 @@ class Controller {
         global $database;
         foreach($this->quote_arr as $q) {
             $q = $database->escapeString($q);
-            $query = $database->Query("SELECT * FROM quotes WHERE quote='$q'");
-            $row = mysqli_fetch_array($query);
+            $row = $database->Query("SELECT * FROM quotes WHERE quote='$q'");
             if(!$row) {
                 $database->Query("INSERT INTO quotes (quote, count) VALUE ('$q', 1)");
             }
@@ -59,8 +57,7 @@ class Controller {
         global $database;
         foreach($this->quotes as $quote) {
             $q = $database->escapeString($quote['text']);
-            $query = $database->Query("SELECT * FROM quotes WHERE quote='$q'");
-            $row = mysqli_fetch_array($query);
+            $row = $database->Query("SELECT * FROM quotes WHERE quote='$q'");
             $count = $this->returnCount($q);
             if($row) {
                 $count++;
@@ -74,8 +71,7 @@ class Controller {
 
     private function returnCount($q) {
         global $database;
-        $query_count = $database->Query("SELECT count FROM quotes WHERE quote='$q'");
-        $row_count = mysqli_fetch_array($query_count);
+        $row_count = $database->Query("SELECT count FROM quotes WHERE quote='$q'");
         return $row_count[count];
     }
 

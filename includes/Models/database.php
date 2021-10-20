@@ -15,7 +15,9 @@ class Database {
     }
 
     public function Query($sql) {
-        return $this->connection->query($sql);
+        $query = $this->connection->query($sql);
+        $row = mysqli_fetch_array($query);
+        return $row;
     }
 
     public function checkQuery() {
